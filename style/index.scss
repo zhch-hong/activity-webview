@@ -1,0 +1,27 @@
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@font-face {
+  font-family: 'FZY3JW';
+  src: url('../assets/font/FZY3JW.TTF');
+  // src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/zt.ttf');
+}
+
+@font-face {
+  font-family: 'FZY4JW';
+  src: url('../assets/font/FZY4JW.TTF');
+  // src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/ct.ttf');
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 32px;
+  font-family: 'FZY4JW';
+}

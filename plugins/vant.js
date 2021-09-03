@@ -1,4 +1,4 @@
-import Vue from 'vue'
-import Vant from 'vant'
+import Vue from 'vue';
+import { Image, Col, Row, Overlay, Divider } from 'vant';
 
-Vue.use(Vant)
+Vue.use(Image).use(Col).use(Row).use(Overlay).use(Divider);
