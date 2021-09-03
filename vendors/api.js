@@ -8,6 +8,7 @@ import parseHref from '~/vendors/parse-href';
 
 /**
  * 登录
+ * @param {String} token
  * @returns
  */
 export async function API_USER_LOGIN(token) {
@@ -85,13 +86,25 @@ export function API_OPEN_BROWSER(url) {
 }
 
 // ========================================= 支付方式
-/* export type RES_GET_PAY_TYPES = {
-  result: number;
-  types?: Record<'channel' | 'child_channel', string>[];
-}; */
+
 /**
- * 支付方式
- * @param giftID
+ * 单个支付数据类型
+ * @typedef {Object} T_PAY_TYPE
+ * @property {String} channel
+ * @property {String} child_channel
+ */
+
+/**
+ * 请求支付方式返回数据结构
+ * @typedef {Object} RES_GET_PAY_TYPES
+ * @property {Number} result
+ * @property {T_PAY_TYPE[]} [types]
+ */
+
+/**
+ * 请求支付方式
+ * @param {number} giftID - 商品ID
+ * @returns {Promise<RES_GET_PAY_TYPES>}
  */
 export function API_GET_PAY_TYPES(giftID) {
   return fetchCall('get_pay_types', { goods_id: giftID });

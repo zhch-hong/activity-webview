@@ -2,8 +2,8 @@
  * 将时间戳（秒）转换为时分秒,
  * H:mm:ss,
  * 3661 => 1:01:01
- * @param value
- * @returns
+ * @param {Number} value
+ * @returns {String}
  */
 export function parseTimestamp(value) {
   if (value === 0) return '';

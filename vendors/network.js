@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Vue from 'vue';
-import axios from '@nuxtjs/axios';
+import axios from 'axios';
 import { v4 } from 'uuid';
 
 import user from '~/vendors/user';

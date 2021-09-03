@@ -2,8 +2,9 @@ import _ from 'lodash';
 
 /**
  * 数字转整数 如 100000 转为10万
- * @param {需要转化的数} num
- * @param {需要保留的小数位数} point
+ * @param {Number} num
+ * @param {Number} point
+ * @returns {String}
  */
 export function tranNumber(num, point = 1) {
   const numStr = num.toString();

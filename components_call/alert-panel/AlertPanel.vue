@@ -1,11 +1,17 @@
 <template>
-  <van-overlay :show="show" :duration="0" @click="$emit('close')">
-    <div class="alert-panel">{{ text }}</div>
-  </van-overlay>
+  <BaseOverlay :show-close="false">
+    <template #title>
+      <span>提示</span>
+    </template>
+    <div class="main">
+      <p class="message">{{ text }}</p>
+      <button class="button" @click="$emit('close')"></button>
+    </div>
+  </BaseOverlay>
 </template>
 <script>
 export default {
-  props: ['text', 'show'],
+  props: ['text'],
 };
 </script>
 <style lang="scss" scoped src="./style.scss" />

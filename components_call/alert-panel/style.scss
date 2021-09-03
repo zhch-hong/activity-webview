@@ -1,6 +1,28 @@
-.alert-panel {
-  margin: 20vh auto auto auto;
-  width: 100px;
-  height: 100px;
-  background-color: blue;
+.main {
+  position: relative;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding: 40px;
+}
+
+.message {
+  text-align: center;
+  font-size: 44px;
+  color: #84491e;
+}
+
+.button {
+  outline: none;
+  background: none;
+  border: none;
+
+  width: 315px;
+  height: 122px;
+  background: url('~/assets/image/confirm_1.png') center/cover no-repeat;
+
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
 }

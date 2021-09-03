@@ -3,7 +3,6 @@ import AlertPanel from './AlertPanel.vue';
 
 const data = Vue.observable({
   text: null,
-  show: false,
 });
 
 const app = new Vue({
@@ -11,11 +10,9 @@ const app = new Vue({
     return h(AlertPanel, {
       props: {
         text: data.text,
-        show: data.show,
       },
       on: {
         close: () => {
-          data.show = false;
           app.$el.remove();
         },
       },
@@ -23,9 +20,12 @@ const app = new Vue({
   },
 });
 
-export default (text) => {
+/**
+ * alert
+ * @param {String} text
+ */
+function alertPanel(text) {
   data.text = text;
-  data.show = true;
 
   if (typeof app.$el === 'undefined') {
     const div = document.createElement('div');
@@ -34,4 +34,6 @@ export default (text) => {
   } else {
     document.querySelector('#__nuxt').append(app.$el);
   }
-};
+}
+
+export default alertPanel;
