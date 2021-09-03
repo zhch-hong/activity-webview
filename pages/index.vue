@@ -3,6 +3,8 @@
     <button @click="alertHandler">Alert</button>
     <van-divider></van-divider>
     <button @click="payHandler">Pay</button>
+    <van-divider></van-divider>
+    <AssetItem name="jing_bi">3000</AssetItem>
   </div>
 </template>
 <script>
@@ -25,6 +27,6 @@ export default {
 .index {
   width: 1920px;
   height: 1080px;
-  background-color: aquamarine;
+  background-color: rgba(0, 0, 0, 0.25);
 }
 </style>
