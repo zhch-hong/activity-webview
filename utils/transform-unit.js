@@ -6,7 +6,7 @@ import _ from 'lodash';
  * @param {Number} point
  * @returns {String}
  */
-export function tranNumber(num, point = 1) {
+export default function tranNumber(num, point = 1) {
   const numStr = num.toString();
   num = _.toNumber(num);
 

@@ -1,0 +1,78 @@
+@keyframes loop {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+div.animate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -97px;
+  width: 199px;
+  height: 194px;
+  zoom: 6;
+  // background-image: ;
+  // background: linear-gradient(to bottom, rgba(79, 181, 226, 0), rgba(79, 181, 226, 1), rgba(79, 181, 226, 0)),
+  //   linear-gradient(to right, rgba(79, 181, 226, 0), rgba(79, 181, 226, 1), rgba(79, 181, 226, 0)),
+  //   url('../../../assets/image/shine02.png');
+  background: radial-gradient(rgba(79, 181, 226, 1), transparent 70%, transparent), url('~/assets/image/shine02.png');
+  opacity: 0.6;
+  background-size: contain;
+  animation: loop 60s linear infinite;
+}
+
+div.main {
+  position: absolute;
+  z-index: 1;
+  width: 1900px;
+  height: 454px;
+  background-image: url('~/assets/image/com_bg_tips.png');
+  background-size: contain;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  div.title {
+    position: absolute;
+    width: 498px;
+    height: 134px;
+    background-image: url('~/assets/image/bt_1.png');
+    background-size: contain;
+    left: 50%;
+    top: -70px;
+    transform: translateX(-50%);
+  }
+
+  div.asset {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span.text {
+      position: absolute;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      color: white;
+      font-size: 26px;
+    }
+  }
+
+  div.confirm {
+    position: absolute;
+    left: 50%;
+    bottom: -180px;
+    transform: translateX(-50%);
+    width: 315px;
+    height: 122px;
+    background-image: url('~/assets/image/confirm_1.png');
+    background-size: contain;
+  }
+}

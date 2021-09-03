@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import assetNotify, { notifyValidate } from '../components/asset-notify';
 import { registerServeMsg, unregisterServeMsg } from './network';
+import notifyValidate from '~/vendors/asset-notify-validate';
+import assetNotify from '~/components_call/asset-notify';
 
 /**
  * 订单状态
