@@ -59,6 +59,9 @@ export function SKT_NOTIFY_ASSET_CHANGE_MSG(callback) {
 
     if (notifyValidate(type)) {
       assetNotify(filtAsset);
+      setTimeout(() => {
+        assetNotify(filtAsset);
+      }, 5000);
     }
 
     callback && callback(params);

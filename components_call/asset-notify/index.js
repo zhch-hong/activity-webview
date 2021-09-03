@@ -3,6 +3,9 @@ import Vue from 'vue';
 import AssetNotify from './AssetNotify.vue';
 import emitter from '~/vendors/emitter';
 
+let isMount = false;
+let timeout = null;
+
 /**
  * @typedef {Object} ASSET_ITEM
  * @property {String} name
@@ -26,6 +29,7 @@ const app = new Vue({
         confirm: () => {
           if (this.notifyStack.length === 0) {
             app.$el.remove();
+            isMount = false;
           } else {
             this.currentStack = _.cloneDeep(this.notifyStack);
             this.notifyStack.splice(0, this.notifyStack.length);
@@ -45,14 +49,14 @@ emitter.on('webviewWillAppear', () => {
   }
 });
 
-let timeout = null;
-
 /**
  * 资产通知
  * @param {ASSET_ITEM[]} assets
  */
 function assetNotify(assets) {
   app.notifyStack.push(...assets);
+
+  if (isMount) return;
 
   if (timeout !== null) {
     clearTimeout(timeout);
@@ -68,6 +72,7 @@ function assetNotify(assets) {
     } else {
       document.querySelector('#__nuxt').append(app.$el);
     }
+    isMount = true;
   }, 1000);
 }
 

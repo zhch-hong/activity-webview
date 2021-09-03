@@ -9,6 +9,7 @@ import { isWebview } from '~/vendors/runtime-env';
 
 export default {
   mounted() {
+    console.log('default mounted');
     API_LOOP_FETCH();
 
     const appElement = document.querySelector('#__nuxt');

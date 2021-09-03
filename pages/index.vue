@@ -6,21 +6,26 @@
     <van-divider></van-divider>
     <AssetItem name="jing_bi">3000</AssetItem>
     <van-divider></van-divider>
-    <nuxt-link to="/act_035_ybwl_web">一本万利</nuxt-link>
+    <nuxt-link :to="{ path: '/act_035_ybwl_web', query: { token } }">一本万利</nuxt-link>
   </div>
 </template>
 <script>
 import AlertPanel from '~/components_call/alert-panel';
 import PayPanel from '~/components_call/pay_panel';
 import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '~/vendors/api-socket';
+import parseHref from '~/vendors/parse-href';
 
 export default {
   data() {
     return {
+      token: '',
       stopMessage: null,
     };
   },
+
   mounted() {
+    const { token } = parseHref();
+    this.token = token;
     this.stopMessage = SKT_NOTIFY_ASSET_CHANGE_MSG();
   },
 
@@ -34,7 +39,7 @@ export default {
     },
 
     payHandler() {
-      PayPanel(10087, 6);
+      PayPanel(10091, 6);
     },
   },
 };
