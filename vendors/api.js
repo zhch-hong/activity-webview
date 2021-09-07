@@ -22,6 +22,7 @@ export async function API_USER_LOGIN(token) {
   });
   data.diff = Math.floor((new Date().valueOf() - data.ts * 1000) / 1000);
   Object.assign(user, data);
+  return Promise.resolve();
 }
 
 /**

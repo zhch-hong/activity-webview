@@ -7,6 +7,8 @@ import _ from 'lodash';
  * @returns {String}
  */
 export default function tranNumber(num, point = 1) {
+  if (num === null || num === undefined) return num;
+
   const numStr = num.toString();
   num = _.toNumber(num);
 

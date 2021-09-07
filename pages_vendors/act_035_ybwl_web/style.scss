@@ -1,0 +1,254 @@
+div.container {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: url('~/pages_vendors/act_035_ybwl_web/image/back.png') center/cover no-repeat;
+}
+
+a.close {
+  position: absolute;
+  right: 180px;
+  top: 40px;
+
+  img {
+    width: 63px;
+    height: 68px;
+  }
+}
+
+main.main {
+  position: absolute;
+  width: 1360px;
+  height: 720px;
+  top: 190px;
+  left: 300px;
+  display: flex;
+  justify-content: space-between;
+
+  nav {
+    position: relative;
+    width: 327px;
+
+    div.back-color {
+      height: 100%;
+      width: 285px;
+      background-color: #395186;
+      border-radius: 10px;
+    }
+
+    div.scroll {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow-y: hidden;
+
+      ul {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 4px 0 14px 0;
+        border-radius: 10px;
+
+        li {
+          position: relative;
+          cursor: pointer;
+          list-style-type: none;
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: center;
+          text-align: center;
+          margin: 10px 0 0 8px;
+          font-size: 40px;
+          &:first-child {
+            margin-top: 0;
+          }
+
+          .red-point {
+            position: absolute;
+            border: 10px solid red;
+            border-radius: 10px;
+            left: 250px;
+            bottom: 75px;
+            background-color: red;
+          }
+        }
+
+        li.active {
+          width: 289px;
+          height: 99px;
+          line-height: 108px;
+          margin-top: 8px;
+          color: #c87009;
+          background-image: url('~/pages_vendors/act_035_ybwl_web/image/active.png');
+
+          img.bought {
+            position: absolute;
+            width: 108px;
+            height: 86px;
+            left: -11px;
+            top: -2px;
+          }
+
+          .name {
+            position: relative;
+            right: 10px;
+          }
+        }
+
+        li.inactive {
+          width: 269px;
+          height: 91px;
+          line-height: 91px;
+          margin-top: 16px;
+          color: #0a68a3;
+          background-image: url('~/pages_vendors/act_035_ybwl_web/image/inactive.png');
+
+          img.bought {
+            position: absolute;
+            width: 108px;
+            height: 86px;
+            left: -11px;
+            top: -10px;
+          }
+        }
+      }
+    }
+  }
+
+  section {
+    position: relative;
+    box-sizing: border-box;
+    background-color: #b5e4ff;
+    border: 10px solid transparent;
+    width: 1033px;
+    border-radius: 10px;
+    text-align: center;
+
+    div.content {
+      position: relative;
+      box-sizing: border-box;
+      padding: 6px;
+      height: 100%;
+      border-radius: 10px;
+      background-color: #395186;
+
+      header {
+        position: relative;
+        width: 1001px;
+        height: 162px;
+        background: url('~/pages_vendors/act_035_ybwl_web/image/header.png') center/cover no-repeat;
+
+        img.tip,
+        div.time {
+          position: absolute;
+        }
+
+        img.tip {
+          width: 63px;
+          height: 65px;
+          top: 10px;
+          right: 10px;
+        }
+
+        div.time {
+          width: 361px;
+          height: 38px;
+          line-height: 38px;
+          left: 0;
+          bottom: 0;
+          text-align: left;
+          padding: 0 6px;
+          background: url('~/pages_vendors/act_035_ybwl_web/image/time.png') center/cover no-repeat;
+
+          span {
+            font-size: 26px;
+            color: #cd641b;
+          }
+        }
+      }
+
+      div.pay-row {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 1003px;
+        height: 129px;
+        top: 174px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: url('~/pages_vendors/act_035_ybwl_web/image/pay-row.png') center/cover no-repeat;
+
+        span.text,
+        div.count {
+          color: #cc7817;
+          font-size: 44px;
+          padding: 0 20px;
+          white-space: nowrap;
+        }
+
+        div.count {
+          width: 150px;
+        }
+
+        img.icon {
+          width: 126px;
+          height: 98px;
+        }
+
+        div.button {
+          cursor: pointer;
+          width: 333px;
+          height: 150px;
+          text-align: center;
+          transform: scale(0.8);
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          color: #fff;
+          font-size: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        div.enable {
+          background-image: url('~/assets/image/btn_back_enable.png');
+          text-shadow: 0 1px #d26529, 1px 0 #d26529, -1px 0 #d26529, 0 -1px #d26529;
+          -webkit-text-stroke: 0.3px #d26529;
+        }
+
+        div.disable {
+          background-image: url('~/assets/image/btn_back_disable.png');
+        }
+      }
+
+      div.task-scroll {
+        margin-top: 141px;
+        height: 386px;
+        text-align: center;
+        overflow: hidden;
+      }
+    }
+
+    div.price {
+      cursor: pointer;
+      position: absolute;
+      bottom: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 263px;
+      height: 102px;
+      font-size: 50px;
+      color: #fff;
+      text-align: center;
+      text-shadow: 0 1px #d26529, 1px 0 #d26529, -1px 0 #d26529, 0 -1px #d26529;
+      -webkit-text-stroke: 0.3px #d26529;
+      background: url('~/assets/image/price.png') center/cover no-repeat;
+      span {
+        vertical-align: -16px;
+      }
+    }
+  }
+}

@@ -57,15 +57,14 @@ async function getPayType(id) {
 
 /**
  * 支付
- * @param {Number} id
- * @param {Number} price
+ * @param {Number} id 礼包id
+ * @param {Number} price 礼包价格
  */
 async function payPanel(id, price) {
   data.id = id;
   data.price = price;
 
   const result = await getPayType(id);
-
   if (result) {
     if (typeof app.$el === 'undefined') {
       const div = document.createElement('div');

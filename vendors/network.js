@@ -129,7 +129,12 @@ const fetchMessage = (function webview2client() {
       url += `&uuid='${uuid}'`;
     }
 
-    app.messageStack.push(url);
+    // console.log('添加前', app.messageStack);
+    const array = _.cloneDeep(app.messageStack);
+    array.push(url);
+    app.messageStack = array;
+    // app.messageStack.push(url);
+    // console.log('添加后', app.messageStack);
 
     emitter.on(readuuid, () => {
       emitter.off(readuuid);
