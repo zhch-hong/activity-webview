@@ -73,6 +73,13 @@ export default {
         this.consumed = _.toNumber(value);
       },
     },
+
+    // 当礼包由未购买变为已购买时，请求一次任务数据
+    pay(value) {
+      if (!value) {
+        this.fetchTaskStatus();
+      }
+    },
   },
 
   mounted() {
@@ -116,7 +123,6 @@ export default {
     async fetchTaskStatus() {
       const { task_data } = await API_QUERY_ONE_TASK_DATA(this.levelOptions.taskid);
       const { now_total_process } = task_data;
-      console.log('任务数据', task_data);
       this.consumed = _.toNumber(now_total_process);
     },
 

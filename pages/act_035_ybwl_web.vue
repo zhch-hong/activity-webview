@@ -153,13 +153,8 @@ export default {
       bought: [], // 已购买的档次，数组元素为礼包id
       timer: null, // 礼包剩余有效时间定时器
       cutdown: '', // 礼包剩余有效时间倒计时显示
+      selectedIsPay: false, // 是否已购买选中档次
     };
-  },
-
-  computed: {
-    selectedIsPay() {
-      return this.bought.includes(this.activeID);
-    },
   },
 
   watch: {
@@ -167,6 +162,14 @@ export default {
       immediate: true,
       handler(value) {
         this.selectedLevel = YIBENWANLI.find((item) => item.id === value);
+        this.selectedIsPay = this.bought.includes(value);
+      },
+    },
+    bought: {
+      deep: true,
+      immediate: true,
+      handler(value) {
+        this.selectedIsPay = value.includes(this.activeID);
       },
     },
   },
