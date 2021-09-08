@@ -10,12 +10,12 @@
       </span>
       <div class="progress">
         <div class="bar" :style="{ width: barWidth }"></div>
-        <span v-if="currentIsPay" class="rate">{{ tranNumber(localConsumed) }}/{{ tranNumber(total) }}</span>
+        <span v-if="pay" class="rate">{{ tranNumber(consumed) }}/{{ tranNumber(total) }}</span>
         <span v-else class="rate">待激活</span>
       </div>
     </div>
     <!-- 领取状态 -->
-    <div :class="['submit', 'award_' + getAward]" @click="submitHandler"></div>
+    <div :class="['submit', 'award_' + status]" @click="submitHandler"></div>
   </div>
 </template>
 <script>
@@ -24,29 +24,29 @@ export default {
   props: {
     /** 奖励的数量，达到需要消耗的数量时领取 */
     award: {
-      type: [Number, String],
-      default: 0,
+      type: Number,
+      required: true,
     },
 
     /** 需要消耗的数量 */
     total: {
-      type: [Number, String],
-      default: 0,
+      type: Number,
+      required: true,
     },
 
     /** 当前阶段奖励是否领取 */
-    getAward: {
-      type: [Number, String],
+    inheritStatus: {
+      type: Number,
       default: 0,
     },
 
     /** 当前已消耗的数量 */
-    consumed: {
-      type: [Number, String],
+    inheritConsumed: {
+      type: Number,
       default: 0,
     },
-
-    currentIsPay: {
+    /** 是否已购买档次 */
+    pay: {
       type: Boolean,
       default: false,
     },
@@ -55,30 +55,42 @@ export default {
   data() {
     return {
       barWidth: '',
+      consumed: 0,
+      status: 0,
     };
   },
 
-  computed: {
-    localConsumed: {
-      get() {
-        return this.consumed;
-      },
-      set(value) {
-        // value
+  watch: {
+    inheritConsumed: {
+      immediate: true,
+      handler(value) {
+        this.consumed = value;
+        this.watchCallback();
       },
     },
-  },
 
-  watch: {
-    consumed: {
+    inheritStatus: {
+      immediate: true,
       handler(value) {
-        this.watchCallback(value);
+        this.status = value;
       },
     },
 
     total: {
-      handler(value) {
-        this.watchCallback(undefined, value);
+      immediate: true,
+      handler() {
+        this.watchCallback();
+      },
+    },
+
+    pay: {
+      immediate: true,
+      async handler(value) {
+        await this.$nextTick();
+        if (!value) {
+          this.barWidth = 0;
+          this.status = 0;
+        }
       },
     },
   },
@@ -91,28 +103,29 @@ export default {
     tranNumber,
 
     submitHandler() {
-      if (this.getAward === 2) return;
+      if (this.status === 2) return;
 
-      if (this.getAward === 1) {
+      if (this.status === 1) {
         this.$emit('fetch-award');
         return;
       }
 
-      if (this.getAward === 0) {
+      if (this.status === 0) {
         this.$emit('go-task');
       }
     },
 
-    watchCallback(c, t) {
-      c = c || this.consumed;
-      t = t || this.total;
+    watchCallback() {
+      const c = this.consumed;
+      const t = this.total;
 
       if (c >= t) {
         this.barWidth = '100%';
-        this.localConsumed = this.total;
+        this.consumed = this.total;
+        // 如果当前按钮是0[没有达到消耗额度]，则置为1[可以领取]
+        if (this.status === 0) this.status = 1;
       } else {
         this.barWidth = ((c / t) * 100 + '%').toString();
-        this.localConsumed = c;
       }
     },
   },

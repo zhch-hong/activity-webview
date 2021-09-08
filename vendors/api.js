@@ -224,10 +224,24 @@ export function API_GET_TASK_AWARD(id) {
 // ========================================= 领取奖励（多阶段任务）
 
 /**
+ * @typedef {Object} T_AWARD_DATAⅡ
+ * @property {String} asset_type
+ * @property {Number} asset_value
+ * @property {String} award_name
+ */
+
+/**
+ * @typedef {Object} RES_GET_TASK_AWARD_NEW
+ * @property {Number} id
+ * @property {Number} result
+ * @property {T_AWARD_DATAⅡ[]} award_list
+ */
+
+/**
  * 领取奖励（多阶段任务）
- * @param taskid
- * @param level
- * @returns
+ * @param {Number} taskid
+ * @param {Number} level
+ * @returns {Promise<RES_GET_TASK_AWARD_NEW>}
  */
 export function API_GET_TASK_AWARD_NEW(taskid, level) {
   return fetchCall('get_task_award_new', { id: taskid, award_progress_lv: level });
@@ -242,12 +256,15 @@ export function API_GET_TASK_AWARD_NEW(taskid, level) {
  * @returns
  */
 export function API_TASK_AWARD_STATUS(id, count) {
-  if (isWebview) return fetchMessage(`unityfun://decode_all_task_award_status?1_int=${id}&2_int=${count}`, true);
-  else
+  if (isWebview) {
+    return fetchMessage(`unityfun://decode_all_task_award_status?1_int=${id}&2_int=${count}`, true);
+  } else {
     console.warn(
       '浏览器环境不支持获取某个任务各阶段的奖励领取状态',
       `unityfun://decode_all_task_award_status?1_int=${id}`
     );
+    return Promise.resolve();
+  }
 }
 
 // ========================================= 超值月卡
