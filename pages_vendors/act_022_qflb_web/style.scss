@@ -1,0 +1,83 @@
+.act_022_qflb_web {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: url('./image/back.png') center/cover no-repeat;
+
+  .close {
+    position: absolute;
+    right: 240px;
+    top: 40px;
+
+    img {
+      width: 96px;
+      height: 100px;
+    }
+  }
+
+  .rule-panel {
+    position: absolute;
+    top: 120px;
+    left: 540px;
+    width: 78px;
+    height: 82px;
+  }
+
+  .tip {
+    position: absolute;
+    top: 130px;
+    right: 400px;
+    width: 256px;
+    height: 158px;
+  }
+
+  .all-award {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 270px;
+    left: 520px;
+    width: 860px;
+    border-radius: 30px;
+    height: 60px;
+    font-size: 44px;
+    line-height: 60px;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 4px;
+  }
+}
+
+.menu-ul {
+  position: absolute;
+  top: 320px;
+  left: 140px;
+
+  li {
+    position: relative;
+    width: 204px;
+    height: 128px;
+    line-height: 128px;
+    text-align: center;
+    font-size: 46px;
+    color: #255293;
+    letter-spacing: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left top;
+    margin-bottom: 40px;
+    text-shadow: 0 1px #fff, 1px 0 #fff, -1px 0 #fff, 0 -1px #fff;
+    -webkit-text-stroke: 0.3px #fff;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.active {
+  background-image: url('./image/active.png');
+}
+
+.inactive {
+  background-image: url('./image/inactive.png');
+}

@@ -188,9 +188,46 @@ export function API_QUERY_GIFT_BAG_STATUS(id) {
 // ========================================= 请求任务
 
 /**
+ * @typedef T_AWARD_DATA
+ * @property {String} asset_type
+ * @property {Number} asset_value
+ */
+
+/**
+ * @typedef T_FIX_AWARD_DATA
+ * @property {T_AWARD_DATA} award_data
+ */
+
+/**
+ * @typedef T_TASK_DATA
+ * @property {String} award_get_status - 奖励领取的状态
+ * @property {Number} award_status - 0不能领取，1可领取，2已完成，3未启用
+ * @property {String} create_time - 创建时间
+ * @property {String} end_valid_time - 结束的有效时间
+ * @property {Number} id - 任务id
+ * @property {String} need_process - 当前阶段需要的总进度
+ * @property {Number} now_lv - 当前任务阶段
+ * @property {String} now_process - 当前阶段总进度
+ * @property {String} now_total_process - 当前总进度
+ * @property {String} [other_data_str] - 其他数据
+ * @property {String} [over_time] - 过期时间
+ * @property {String} start_valid_time - 开始有效时间
+ * @property {Number} task_round - 应该领取的奖励阶段
+ * @property {String} task_type - 任务类型
+ * @property {String} task_condition_type - 任务的条件类型（按什么条件来加进度）
+ * @property {T_FIX_AWARD_DATA} [fix_award_data] - 固定奖励类型
+ */
+
+/**
+ * @typedef RES_QUERY_ONE_TASK_DATA
+ * @property {Number} result
+ * @property {T_TASK_DATA} [task_data]
+ */
+
+/**
  * 查询任务
- * @param id 任务ID
- * @returns
+ * @param {Number} id 任务id
+ * @returns {Promise<RES_QUERY_ONE_TASK_DATA>}
  */
 export function API_QUERY_ONE_TASK_DATA(id) {
   return fetchCall('query_one_task_data', { task_id: id });
@@ -305,8 +342,24 @@ export function API_JIKA_EVERYDAY_LOTTERY() {
 // ========================================= 全返礼包
 
 /**
+ * @typedef ALL_RETURN_LB_DATA
+ * @property {Number} is_buy - 是否已购买
+ * @property {Number} remain_num - 剩余次数
+ * @property {Number} buy_time - 购买时间
+ * @property {Number} over_time - 任务过期时间
+ */
+
+/**
+ * @typedef RES_QUERY_ALL_RETURN_LB_INFO
+ * @property {Number} result
+ * @property {ALL_RETURN_LB_DATA} all_return_lb_1
+ * @property {ALL_RETURN_LB_DATA} all_return_lb_2
+ * @property {ALL_RETURN_LB_DATA} all_return_lb_3
+ */
+
+/**
  * 请求全返礼包数据
- * @returns
+ * @returns {Promise<RES_QUERY_ALL_RETURN_LB_INFO>}
  */
 export function API_QUERY_ALL_RETURN_LB_INFO() {
   return fetchCall('query_all_return_lb_info');
