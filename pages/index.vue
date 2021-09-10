@@ -10,6 +10,8 @@
     <nuxt-link :to="{ path: '/gift_10087_web', query: { token } }">每日特惠</nuxt-link>
     <van-divider></van-divider>
     <nuxt-link :to="{ path: '/act_016_xyxcwk_web', query: { token } }">小游戏畅玩卡</nuxt-link>
+    <van-divider></van-divider>
+    <nuxt-link :to="{ path: '/sys_sclb1_web', query: { token } }">首充礼包</nuxt-link>
   </div>
 </template>
 <script>
