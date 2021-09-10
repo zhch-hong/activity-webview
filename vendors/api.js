@@ -9,7 +9,7 @@ import parseHref from '~/vendors/parse-href';
 /**
  * 登录
  * @param {String} token
- * @returns
+ * @returns {Promise<void>}
  */
 export async function API_USER_LOGIN(token) {
   token = token || parseHref().token;
@@ -109,6 +109,16 @@ export function API_OPEN_BROWSER(url) {
  */
 export function API_GET_PAY_TYPES(giftID) {
   return fetchCall('get_pay_types', { goods_id: giftID });
+}
+
+// ========================================= 礼包兑换码
+/**
+ * 礼包兑换码
+ * @param {String} code
+ * @returns
+ */
+export function API_USE_REDEEM_CODE(code) {
+  return fetchCall('use_redeem_code', { code });
 }
 
 // ========================================= 创建订单

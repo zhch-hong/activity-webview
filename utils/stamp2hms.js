@@ -5,7 +5,7 @@
  * @param {Number} value
  * @returns {String}
  */
-export function parseTimestamp(value) {
+export default function parseTimestamp(value) {
   if (value === 0) return '';
 
   const m = Math.floor(value / 60);

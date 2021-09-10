@@ -1,0 +1,74 @@
+.zhizunjika {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.yueka {
+  position: relative;
+  width: 486px;
+  height: 350px;
+  background: url('../..//image/zxyk.png') center/cover no-repeat;
+
+  .overlay {
+    position: absolute;
+    width: 256px;
+    height: 98px;
+    top: 133px;
+    left: 2px;
+    background: url('../..//image/zxyk_over.png') center/cover no-repeat;
+
+    .yilingquicon {
+      position: absolute;
+      width: 146px;
+      height: 146px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+  }
+
+  .count {
+    position: absolute;
+    top: 104px;
+    left: 264px;
+    width: 50px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .lingqu,
+  .yilingqu {
+    position: absolute;
+    width: 183px;
+    height: 69px;
+    bottom: 8px;
+    right: 44px;
+  }
+
+  .lingqu {
+    background: url('~/assets/image/yk_btn_ljlq3.png') center/cover no-repeat;
+  }
+
+  .yilingqu {
+    background: url('~/assets/image/yi_yk_btn_ljlq3.png') center/cover no-repeat;
+  }
+}
+
+.jika {
+  width: 534px;
+  height: 383px;
+  background: url('../..//image/zzyk_bg_1.png') center/cover no-repeat;
+
+  .lingqu {
+    position: absolute;
+    width: 266px;
+    height: 100px;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: url('../..//image/jk_btn_ljlq3.png') center/cover no-repeat;
+  }
+}

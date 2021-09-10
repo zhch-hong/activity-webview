@@ -12,6 +12,8 @@
     <nuxt-link :to="{ path: '/act_016_xyxcwk_web', query: { token } }">小游戏畅玩卡</nuxt-link>
     <van-divider></van-divider>
     <nuxt-link :to="{ path: '/sys_sclb1_web', query: { token } }">首充礼包</nuxt-link>
+    <van-divider></van-divider>
+    <nuxt-link :to="{ path: '/sys_act_base_normal_web', query: { token } }">活动</nuxt-link>
   </div>
 </template>
 <script>

@@ -8,6 +8,8 @@ import emitter from '~/vendors/emitter';
 import parseHref from '~/vendors/parse-href';
 import { isWebview } from '~/vendors/runtime-env';
 
+import AlertPanel from '~/components_call/alert-panel';
+
 const app = new Vue({
   data() {
     return {
@@ -172,7 +174,7 @@ const fetchMessage = (function webview2client() {
 function fetchClientConfig(url) {
   return new Promise((resolve) => {
     axios({
-      baseURL: process.env.VUE_APP_ASSET_URL,
+      baseURL: process.env.ASSET_URL,
       url,
       method: 'GET',
     })
@@ -180,8 +182,9 @@ function fetchClientConfig(url) {
         const data = response.data;
         resolve(data);
       })
-      .catch(() => {
-        alert(`获取配置文件失败[${url}]`);
+      .catch((error) => {
+        console.log(error);
+        AlertPanel(`获取配置文件失败[${url}]`);
       });
   });
 }

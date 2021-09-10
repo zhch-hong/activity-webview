@@ -1,0 +1,72 @@
+.haohua {
+  position: relative;
+  height: 100%;
+  background: url('../../image/hhyk_icon_1.png') center/cover no-repeat;
+
+  .ques {
+    position: absolute;
+    right: 40px;
+    bottom: 260px;
+    width: 42px;
+    height: 43px;
+  }
+
+  .count {
+    position: absolute;
+    display: inline-block;
+    top: 400px;
+    left: 148px;
+    width: 60px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .jiujijin {
+    position: absolute;
+    right: -260px;
+    bottom: 300px;
+    z-index: 1;
+    width: 337px;
+    height: 82px;
+  }
+
+  .buy {
+    position: absolute;
+    bottom: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 263px;
+    height: 115px;
+    background: url('../../image/yk_btn_ljlq2.png') center/cover no-repeat;
+  }
+}
+
+// 购买后金币遮罩
+.jinbi-overlay {
+  position: absolute;
+  width: 389px;
+  height: 181px;
+  top: 131px;
+  left: 51px;
+  background: url('../../image/yk_zzbg_1.png') center/cover no-repeat;
+
+  .yilingqu {
+    position: absolute;
+    width: 146px;
+    height: 146px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+// 已购买按钮
+.yigoumai {
+  position: absolute;
+  width: 263px;
+  height: 102px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -20px;
+  background: url('~/assets/image/yk_btn_ygm.png') center/cover no-repeat;
+}

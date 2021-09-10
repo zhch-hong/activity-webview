@@ -1,0 +1,15 @@
+.czyk {
+  position: relative;
+  height: 100%;
+  background: url('./image/yk_bg_1.png') no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  .item {
+    position: relative;
+    width: 486px;
+    height: 705px;
+  }
+}

@@ -1,0 +1,72 @@
+.zunxiang {
+  position: relative;
+  height: 100%;
+  background: url('../../image/zxyk_bg_1.png') center/cover no-repeat;
+
+  .count {
+    position: absolute;
+    display: inline-block;
+    top: 400px;
+    left: 148px;
+    width: 60px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .buy {
+    position: absolute;
+    bottom: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 263px;
+    height: 115px;
+    background: url('../../image/yk_btn_ljlq1.png') center/cover no-repeat;
+  }
+}
+
+// 购买后金币遮罩
+.jinbi-overlay {
+  position: absolute;
+  width: 389px;
+  height: 191px;
+  top: 121px;
+  left: 51px;
+  background: url('../../image/yk_zzbg_2.png') center/cover no-repeat;
+
+  .yilingquicon {
+    position: absolute;
+    width: 146px;
+    height: 146px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.yigoumai,
+.lijilingqu,
+.yilingqu {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -20px;
+}
+
+// 已购买按钮
+.yigoumai {
+  width: 263px;
+  height: 102px;
+  background: url('~/assets/image/yk_btn_ygm.png') center/cover no-repeat;
+}
+
+.lijilingqu {
+  width: 266px;
+  height: 100px;
+  background: url('../../image/jk_btn_ljlq30.png') center/cover no-repeat;
+}
+
+.yilingqu {
+  width: 263px;
+  height: 102px;
+  background: url('~/assets/image/jk_btn_ljlq3_dis.png') center/cover no-repeat;
+}
