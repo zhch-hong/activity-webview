@@ -1,0 +1,36 @@
+.container {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: url('./image/back.png') center/cover no-repeat;
+}
+
+a.close {
+  position: absolute;
+  right: 160px;
+  top: 60px;
+
+  img {
+    width: 96px;
+    height: 100px;
+  }
+}
+
+p.tip {
+  position: absolute;
+  width: 878px;
+  height: 52px;
+  background: url('./image/tip_back.png') center/cover no-repeat;
+  top: 260px;
+  left: 500px;
+  text-align: center;
+  line-height: 52px;
+  color: #e0c9a2;
+}
+
+div.pay-list {
+  position: absolute;
+  left: 264px;
+  top: 358px;
+  display: flex;
+}

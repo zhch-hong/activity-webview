@@ -166,20 +166,21 @@ export function API_CHECK_PERMISS(name) {
 }
 
 // ========================================= 礼包状态
+/**
+ * @typedef RES_QUERY_GIFT_BAG_STATUS
+ * @property {Number} gift_bag_id
+ * @property {Number} permit_start_time
+ * @property {Number} permit_time
+ * @property {Number} remain_time
+ * @property {Number} result
+ * @property {Number} status
+ * @property {Number} time
+ */
 
-/* export type RES_QUERY_GIFT_BAG_STATUS = {
-  gift_bag_id: number;
-  permit_start_time: number;
-  permit_time: number;
-  remain_time: number;
-  result: number;
-  status: 0 | 1;
-  time: number;
-}; */
 /**
  * 查询礼包
- * @param id
- * @returns
+ * @param {Number} id
+ * @returns {Promise<RES_QUERY_GIFT_BAG_STATUS>}
  */
 export function API_QUERY_GIFT_BAG_STATUS(id) {
   return fetchCall('query_gift_bag_status', { gift_bag_id: id });
@@ -199,7 +200,7 @@ export function API_QUERY_GIFT_BAG_STATUS(id) {
  */
 
 /**
- * @typedef T_TASK_DATA
+ * @typedef {Object} T_TASK_DATA
  * @property {String} award_get_status - 奖励领取的状态
  * @property {Number} award_status - 0不能领取，1可领取，2已完成，3未启用
  * @property {String} create_time - 创建时间
