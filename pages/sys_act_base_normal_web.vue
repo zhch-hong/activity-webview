@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attrs" class="multi-nav">
+  <div class="multi-nav">
     <!-- 关闭按钮 -->
     <a class="close" href="uniwebviewfun://Hide">
       <img src="~/assets/image/close_1.png" alt="关闭" />
@@ -26,7 +26,13 @@
         </ul>
       </div>
       <div class="main">
-        <component :is="currentComponent" @select-menu="(id) => (menuId = id)" @pay-fulfilled="updateMenu"></component>
+        <client-only>
+          <component
+            :is="currentComponent"
+            @select-menu="(id) => (menuId = id)"
+            @pay-fulfilled="updateMenu"
+          ></component>
+        </client-only>
       </div>
     </div>
   </div>
