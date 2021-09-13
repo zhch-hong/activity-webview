@@ -181,8 +181,10 @@ node {
 					sh "echo 'COPY nuxt.config.js /home/www/express${SERVER_CONTEXT_PATH}' >> Dockerfile"
 					sh "echo 'COPY package.json /home/www/express${SERVER_CONTEXT_PATH}' >> Dockerfile"
 					sh "echo 'WORKDIR /home/www/express${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'RUN ls' >> Dockerfile"
 					sh "echo 'RUN npm install' >> Dockerfile"
 					sh "echo 'EXPOSE $DEFAULT_PORT' >> Dockerfile"
+					sh "echo 'WORKDIR /home/www/express${SERVER_CONTEXT_PATH}' >> Dockerfile"
 					sh "echo 'ENTRYPOINT npm start' >> Dockerfile"
 				},
 				'Npm build': {
