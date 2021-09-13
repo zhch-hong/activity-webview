@@ -172,7 +172,7 @@ node {
         stage "npm build and create dockerfile"
         parallel(		
 				'Create Dockerfile': {
-					sh 'echo "node:latest" > Dockerfile'
+					sh 'echo "node" > Dockerfile'
 					sh 'echo "MAINTAINER zch (zch@gmail.com)" >> Dockerfile'
 					sh 'echo "RUN ln -sf /usr/share/zoneinfo/Asia/Chongqing  /etc/localtime" >> Dockerfile'
 					sh "echo 'HEALTHCHECK --interval=5s --timeout=5s CMD curl -f http://127.0.0.1:${DEFAULT_PORT} || exit 1' >> Dockerfile"
