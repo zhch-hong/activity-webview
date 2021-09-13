@@ -1,0 +1,267 @@
+/**
+ * Docker私服
+ */
+def DOCKER_REPOSITORY = "registry.cn-shenzhen.aliyuncs.com"
+/**
+ * Docker 私服账户
+ */
+def DOCKER_LOGINAME = "changleyouyl"
+/**
+ * Docker 私服密码
+ */
+def DOCKER_PASSWORD = "1qazxsw2"
+/**
+ * 默认端口 Docker容器端口
+ */
+def DEFAULT_PORT = 80
+/**
+ * 删除就镜像
+ */
+def REMOVE_OLD_IMAGES = '''docker images | grep -i "IMAGE_NAME" | awk '{print $3}' | xargs docker rmi -f '''
+
+def DOCKER_CONFIG_JSON_BASE64 = '''base64 -w 0 ~/.docker/config.json'''
+
+
+
+def ENV = "test"
+def SERVER_NAMESPACE = "hlby"
+def PROJECT_NAME = "jy-activity-server"
+def BUILD_EVNIRONMENT = "build:dev:hlby"
+def PAGE_PROFILE = "${SERVER_NAMESPACE}-${ENV}"
+def SERVER_CONTEXT_PATH = "/jyhd/${SERVER_NAMESPACE}"
+
+def K8S_SERVICE_PATH = "/home/yml/k8s/service"
+def K8S_DEPLOY_PATH = "/home/yml/k8s/deploy"
+def K8S_SECRET_PATH = "/home/yml/k8s/secret"
+
+def VOLUME_MOUNT_NAME = "${PROJECT_NAME}-${SERVER_NAMESPACE}"
+def VOLUME_MOUNT_PATH = "/home/application/${VOLUME_MOUNT_NAME}"
+
+
+/**
+ * 构建镜像
+ */
+def activity_app = "activity-app-${PAGE_PROFILE}"
+def activity_app_image = "${DOCKER_REPOSITORY}/changleyou/${activity_app}:${env.BUILD_NUMBER}"
+def activity_app_node_port = 30576
+def activity_app_replicas = 1
+
+
+
+/**
+ * 发布/更新service
+ * 涉及到变量取双引号
+ */
+def applyK8sService(nodePort,projectName,k8sServicePath) {
+         sh " mkdir -p ${k8sServicePath}"
+         sh "echo 'apiVersion: v1' > ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo 'kind: Service' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo 'metadata:' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '  name: ${projectName}' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '  namespace: default' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '  labels:' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '    app: ${projectName}' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo 'spec:' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '  type: NodePort' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '  ports:' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '    - name: ${projectName}-svr' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '      port: 80' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '      nodePort: ${nodePort}' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '      targetPort: 80' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '  selector:' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '    app: ${projectName}' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "kubectl apply -f ${k8sServicePath}/${projectName}-svr.yaml"
+}
+
+/**
+ * 发布/更新deployment
+ * 涉及到变量取双引号
+ */
+def applyK8sDeploy(k8sDeployPath,projectName,replicas,image,volumeMountName,volumeMountPath,contextPath) {
+    sh " mkdir -p ${k8sDeployPath}"
+    sh "echo 'apiVersion: apps/v1' > ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo 'kind: Deployment' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo 'metadata:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '  name: ${projectName}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo 'spec:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '  minReadySeconds: 0' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '  strategy:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '    type: RollingUpdate' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '    rollingUpdate:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '      maxSurge: 1' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '      maxUnavailable: 0' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '  selector:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '    matchLabels:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '      app: ${projectName}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '  replicas: ${replicas}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '  revisionHistoryLimit: 10' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '  template:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '    metadata:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '      labels:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '        app: ${projectName}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '    spec:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '      containers:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '        - name: ${projectName}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '          image: ${image}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '          imagePullPolicy: Always' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '          ports:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            - containerPort: 80' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+
+    sh "echo '          readinessProbe:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            httpGet:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '              path: ${contextPath}/index.html' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '              port: 80' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            initialDelaySeconds: 30' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            periodSeconds: 10' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            successThreshold: 1' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            failureThreshold: 5' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '          livenessProbe:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            httpGet:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '              path: ${contextPath}/index.html' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '              port: 80' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            initialDelaySeconds: 30' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            periodSeconds: 30' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            successThreshold: 1' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            failureThreshold: 4' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+
+    sh "echo '          volumeMounts:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            - name: ${volumeMountName}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '              mountPath: ${volumeMountPath}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '      volumes:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '      - name: ${volumeMountName}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '        hostPath:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '          path: ${volumeMountPath}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '      imagePullSecrets:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '        - name: defaultregsecret' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+
+
+    sh "kubectl apply -f ${k8sDeployPath}/${projectName}-deploy.yaml --record"
+
+}
+
+/**
+ * 发布/更新secret
+ * 涉及到变量取双引号
+ */
+def applyK8sDefaultSecret(k8sSecretPath,k8sSecretName,base64) {
+    sh " mkdir -p ${k8sSecretPath}"
+    sh "echo 'apiVersion: v1' > ${k8sSecretPath}/${k8sSecretName}-secret.yaml"
+    sh "echo 'kind: Secret' >> ${k8sSecretPath}/${k8sSecretName}-secret.yaml"
+    sh "echo 'metadata:' >> ${k8sSecretPath}/${k8sSecretName}-secret.yaml"
+    sh "echo '  name: defaultregsecret' >> ${k8sSecretPath}/${k8sSecretName}-secret.yaml"
+    sh "echo '  namespace: default' >> ${k8sSecretPath}/${k8sSecretName}-secret.yaml"
+    sh "echo 'data:' >> ${k8sSecretPath}/${k8sSecretName}-secret.yaml"
+    sh "echo '  .dockerconfigjson: ${base64}' >> ${k8sSecretPath}/${k8sSecretName}-secret.yaml"
+    sh "echo 'type: kubernetes.io/dockerconfigjson' >> ${k8sSecretPath}/${k8sSecretName}-secret.yaml"
+
+    sh "kubectl apply -f ${k8sSecretPath}/${k8sSecretName}-secret.yaml"
+}
+
+node {
+    try {
+        stage('克隆仓库项目') { checkout scm }
+
+        stage("确定部署环境") {
+            timeout(time: 5, unit: 'MINUTES') {
+                script {
+                    input message: "确定部署${BUILD_EVNIRONMENT}环境?", ok: '确认?', parameters: [booleanParam(defaultValue: true, name: "确认部署${BUILD_EVNIRONMENT}环境")]
+                }
+            }
+        }
+
+        stage "npm build and create dockerfile"
+        parallel(		
+				'Create Dockerfile': {
+					sh 'echo "FROM nginx" > Dockerfile'
+					sh 'echo "MAINTAINER zch (zch@gmail.com)" >> Dockerfile'
+					sh 'echo "RUN ln -sf /usr/share/zoneinfo/Asia/Chongqing  /etc/localtime" >> Dockerfile'
+					sh "echo 'HEALTHCHECK --interval=5s --timeout=5s CMD curl -f http://127.0.0.1:${DEFAULT_PORT} || exit 1' >> Dockerfile"
+					sh "echo 'RUN  mkdir -p /usr/share/nginx/html${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'COPY .nuxt /usr/share/nginx/html${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'COPY nuxt.config.js /usr/share/nginx/html${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'COPY package.json /usr/share/nginx/html${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'EXPOSE $DEFAULT_PORT' >> Dockerfile"
+					sh "echo 'WORKDIR /usr/share/nginx/html${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'ENTRYPOINT npm start' >> Dockerfile"
+				},
+				'Npm build': {
+					sh "npm install"
+					sh "npm run ${BUILD_EVNIRONMENT}"
+				}		
+        )
+		
+		stage '创建镜像'
+		parallel(
+		  "${activity_app}": {
+			sh "docker build -t ${activity_app_image} ."
+		  }
+		)
+		
+        stage "推送镜像"
+        parallel(
+                "${activity_app}": {
+                    script {
+                        sh "docker login -u ${DOCKER_LOGINAME} -p ${DOCKER_PASSWORD} ${DOCKER_REPOSITORY}"
+                            try {
+                                sh "docker push ${activity_app_image}"
+                            } catch (err) {
+                                 throw err
+                            }
+                    }
+                }
+        )
+
+        stage "创建（更新）service"
+                parallel(
+                        "${activity_app}": {
+                             script {
+                                try {
+                                        applyK8sService(activity_app_node_port,activity_app,K8S_SERVICE_PATH)
+                                 } catch (err) {
+                                        throw err
+                                }
+                             }
+                        }
+                )
+
+        stage ('创建（更新）K8S Secret'){
+                     script {
+                        try {
+                                base64 = sh(script: DOCKER_CONFIG_JSON_BASE64, returnStdout: true).trim()
+                                applyK8sDefaultSecret(K8S_SECRET_PATH,PROJECT_NAME,base64)
+                         } catch (err) {
+                                throw err
+                        }
+                     }
+                 }
+        stage "创建（更新）deployment"
+                parallel(
+                        "${activity_app}": {
+                             script {
+                                try {
+                                        applyK8sDeploy(K8S_DEPLOY_PATH,activity_app,activity_app_replicas,activity_app_image,VOLUME_MOUNT_NAME,VOLUME_MOUNT_PATH,SERVER_CONTEXT_PATH)
+                                 } catch (err) {
+                                        throw err
+                                }
+                             }
+                        }
+                )
+                stage "移除本地docker旧镜像"
+                parallel(
+                        "${activity_app}": {
+                             script {
+                                try {
+                                    activity_app_rmi = REMOVE_OLD_IMAGES
+                                    sh activity_app_rmi.replaceAll("IMAGE_NAME", activity_app)
+                                 } catch (err) {
+                                        
+                                }
+                             }
+                        }
+                )
+    } catch (err) {
+        throw err
+    } finally {
+        echo '完成'
+    }
+}
