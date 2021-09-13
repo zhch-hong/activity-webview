@@ -109,7 +109,7 @@ def applyK8sDeploy(k8sDeployPath,projectName,replicas,image,volumeMountName,volu
 
     sh "echo '          readinessProbe:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            httpGet:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
-    sh "echo '              path: ${contextPath}/index.html' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '              path: ${contextPath}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '              port: 80' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            initialDelaySeconds: 30' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            periodSeconds: 10' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
@@ -117,7 +117,7 @@ def applyK8sDeploy(k8sDeployPath,projectName,replicas,image,volumeMountName,volu
     sh "echo '            failureThreshold: 5' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '          livenessProbe:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            httpGet:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
-    sh "echo '              path: ${contextPath}/index.html' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '              path: ${contextPath}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '              port: 80' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            initialDelaySeconds: 30' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            periodSeconds: 30' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
