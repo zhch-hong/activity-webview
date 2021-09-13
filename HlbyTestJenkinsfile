@@ -172,16 +172,16 @@ node {
         stage "npm build and create dockerfile"
         parallel(		
 				'Create Dockerfile': {
-					sh 'echo "FROM nginx" > Dockerfile'
+					sh 'echo "node:14" > Dockerfile'
 					sh 'echo "MAINTAINER zch (zch@gmail.com)" >> Dockerfile'
 					sh 'echo "RUN ln -sf /usr/share/zoneinfo/Asia/Chongqing  /etc/localtime" >> Dockerfile'
 					sh "echo 'HEALTHCHECK --interval=5s --timeout=5s CMD curl -f http://127.0.0.1:${DEFAULT_PORT} || exit 1' >> Dockerfile"
-					sh "echo 'RUN  mkdir -p /usr/share/nginx/html${SERVER_CONTEXT_PATH}' >> Dockerfile"
-					sh "echo 'COPY .nuxt /usr/share/nginx/html${SERVER_CONTEXT_PATH}' >> Dockerfile"
-					sh "echo 'COPY nuxt.config.js /usr/share/nginx/html${SERVER_CONTEXT_PATH}' >> Dockerfile"
-					sh "echo 'COPY package.json /usr/share/nginx/html${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'RUN  mkdir -p /home/www/express${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'COPY .nuxt /home/www/express${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'COPY nuxt.config.js /home/www/express${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'COPY package.json /home/www/express${SERVER_CONTEXT_PATH}' >> Dockerfile"	
 					sh "echo 'EXPOSE $DEFAULT_PORT' >> Dockerfile"
-					sh "echo 'WORKDIR /usr/share/nginx/html${SERVER_CONTEXT_PATH}' >> Dockerfile"
+					sh "echo 'WORKDIR /home/www/express${SERVER_CONTEXT_PATH}' >> Dockerfile"
 					sh "echo 'ENTRYPOINT npm start' >> Dockerfile"
 				},
 				'Npm build': {
