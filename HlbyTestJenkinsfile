@@ -13,7 +13,7 @@ def DOCKER_PASSWORD = "1qazxsw2"
 /**
  * 默认端口 Docker容器端口
  */
-def DEFAULT_PORT = 80
+def DEFAULT_PORT = 30576
 /**
  * 删除就镜像
  */
@@ -65,9 +65,9 @@ def applyK8sService(nodePort,projectName,k8sServicePath) {
          sh "echo '  type: NodePort' >> ${k8sServicePath}/${projectName}-svr.yaml"
          sh "echo '  ports:' >> ${k8sServicePath}/${projectName}-svr.yaml"
          sh "echo '    - name: ${projectName}-svr' >> ${k8sServicePath}/${projectName}-svr.yaml"
-         sh "echo '      port: 80' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '      port: 30576' >> ${k8sServicePath}/${projectName}-svr.yaml"
          sh "echo '      nodePort: ${nodePort}' >> ${k8sServicePath}/${projectName}-svr.yaml"
-         sh "echo '      targetPort: 80' >> ${k8sServicePath}/${projectName}-svr.yaml"
+         sh "echo '      targetPort: 30576' >> ${k8sServicePath}/${projectName}-svr.yaml"
          sh "echo '  selector:' >> ${k8sServicePath}/${projectName}-svr.yaml"
          sh "echo '    app: ${projectName}' >> ${k8sServicePath}/${projectName}-svr.yaml"
          sh "kubectl apply -f ${k8sServicePath}/${projectName}-svr.yaml"
@@ -105,12 +105,12 @@ def applyK8sDeploy(k8sDeployPath,projectName,replicas,image,volumeMountName,volu
     sh "echo '          image: ${image}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '          imagePullPolicy: Always' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '          ports:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
-    sh "echo '            - containerPort: 80' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '            - containerPort: 30576' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
 
     sh "echo '          readinessProbe:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            httpGet:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '              path: ${contextPath}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
-    sh "echo '              port: 80' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '              port: 30576' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            initialDelaySeconds: 30' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            periodSeconds: 10' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            successThreshold: 1' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
@@ -118,7 +118,7 @@ def applyK8sDeploy(k8sDeployPath,projectName,replicas,image,volumeMountName,volu
     sh "echo '          livenessProbe:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            httpGet:' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '              path: ${contextPath}' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
-    sh "echo '              port: 80' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
+    sh "echo '              port: 30576' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            initialDelaySeconds: 30' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            periodSeconds: 30' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
     sh "echo '            successThreshold: 1' >> ${k8sDeployPath}/${projectName}-deploy.yaml"
