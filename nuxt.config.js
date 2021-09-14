@@ -1,3 +1,7 @@
+const WEBVIEW_PORT = 30576;
+const BROWSER_PORT = 30577;
+const SERVER_PORT = process.env.RUNTIME_CLIENT === 'webview' ? WEBVIEW_PORT : BROWSER_PORT;
+
 export default {
   dev: process.env.NODE_ENV !== 'production',
 
@@ -8,7 +12,7 @@ export default {
   },
 
   server: {
-    port: 30576, // default: 3000
+    port: SERVER_PORT, // default: 3000
     host: '0.0.0.0', // default: localhost,
     timing: true,
   },
@@ -71,8 +75,6 @@ export default {
           viewportWidth: 1920,
           unitPrecision: 6,
           propList: ['*'],
-          // selectorBlackList: [/^(?!\.van-(divider|button))/],
-          include: /\/src\//,
           landscapeWidth: 1080,
         },
       },

@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "cross-env RUNTIME_CLIENT=webview NODE_ENV=development ASSET_URL=https://download.game3396.com/activity nuxt",
     "dev:b": "cross-env RUNTIME_CLIENT=browser NODE_ENV=development ASSET_URL=https://download.game3396.com/activity HTTP_HOST=http://192.168.10.13:8002/webview nuxt --open",
-    "build": "cross-env RUNTIME_CLIENT=webview NODE_ENV=development ASSET_URL=https://download.game3396.com/activity nuxt build",
-    "start": "cross-env RUNTIME_CLIENT=webview NODE_ENV=development ASSET_URL=https://download.game3396.com/activity nuxt start",
+    "build": "cross-env RUNTIME_CLIENT=webview NODE_ENV=production ASSET_URL=https://download.game3396.com/activity nuxt build",
+    "start": "cross-env RUNTIME_CLIENT=webview NODE_ENV=production ASSET_URL=https://download.game3396.com/activity nuxt start",
+    "build:dev": "cross-env RUNTIME_CLIENT=webview NODE_ENV=development ASSET_URL=https://download.game3396.com/activity nuxt build",
+    "start:dev": "cross-env RUNTIME_CLIENT=webview NODE_ENV=development ASSET_URL=https://download.game3396.com/activity nuxt start",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "npm run lint:js"

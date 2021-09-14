@@ -26,7 +26,7 @@ def DOCKER_CONFIG_JSON_BASE64 = '''base64 -w 0 ~/.docker/config.json'''
 def ENV = "test"
 def SERVER_NAMESPACE = "hlby"
 def PROJECT_NAME = "jy-activity-server"
-def BUILD_EVNIRONMENT = "build"
+def BUILD_EVNIRONMENT = "build:dev"
 def PAGE_PROFILE = "${SERVER_NAMESPACE}-${ENV}"
 def SERVER_CONTEXT_PATH = "/jyhd/${SERVER_NAMESPACE}"
 
