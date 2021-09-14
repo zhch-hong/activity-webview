@@ -6,10 +6,9 @@
 <script>
 import _ from 'lodash';
 import Vue from 'vue';
-import { API_LOOP_FETCH, API_APP_SCALE } from '~/vendors/api';
+import { API_USER_LOGIN, API_LOOP_FETCH, API_APP_SCALE } from '~/vendors/api';
 import parseHref from '~/vendors/parse-href';
 import { isBrowser, isWebview } from '~/vendors/runtime-env';
-import { API_USER_LOGIN } from '~/vendors/api';
 
 export default {
   data() {
